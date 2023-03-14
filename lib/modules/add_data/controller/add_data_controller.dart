@@ -119,6 +119,7 @@ class AddDataController extends GetxController {
 
             var data = List<StudentModel>.from(
                 responseBody['userData'].map((e) => StudentModel.fromJson(e)));
+            searchData.value = data;
             studentData.value = data;
           }
           loading.value = false;
@@ -126,7 +127,12 @@ class AddDataController extends GetxController {
       }
     } catch (e) {
       loading.value = false;
-      print(e.toString());
+      Get.snackbar(
+        'Error',
+        e.toString(),
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
     }
   }
 

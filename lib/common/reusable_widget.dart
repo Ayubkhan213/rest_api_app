@@ -2,6 +2,7 @@
 // ignore_for_file: unnecessary_null_in_if_null_operators
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rest_api_app/constant/colors.dart';
 
 Widget ph(double height) {
@@ -125,6 +126,86 @@ Widget btn({
           )
         ],
       ),
+    ),
+  );
+}
+
+//Search Box
+Widget searchBox(height, width, change) {
+  return SizedBox(
+    height: height,
+    width: width,
+    child: TextFormField(
+      onChanged: change,
+      style: const TextStyle(color: Colors.white54),
+      decoration: InputDecoration(
+        hintText: 'Search By Name',
+        hintStyle: const TextStyle(
+          color: Colors.white54,
+        ),
+        suffixIcon: const Icon(
+          Icons.search,
+          color: Colors.white54,
+        ),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: const BorderSide(color: Colors.white54)),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
+    ),
+  );
+}
+
+//Heading Container with Gradient Colors
+Widget headGradientContainer({
+  required String heading,
+  required height,
+}) {
+  return Container(
+    padding: const EdgeInsets.only(bottom: 20.0),
+    decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+          stops: [0.2, 0.3, 0.4, 0.7, 0.8, 1.0],
+          colors: [
+            Color(0xFF30336b),
+            Color(0xFF182C61),
+            Color(0xFF30336b),
+            Color(0xFF182C61),
+            Color(0xFF30336b),
+            Color(0xFF30336b)
+          ],
+        ),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(40.0),
+          bottomRight: Radius.circular(40.0),
+        )),
+    height: height,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Align(
+          alignment: Alignment.topLeft,
+          child: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(Icons.arrow_back),
+            color: Colors.white,
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: text(
+            txt: heading,
+            size: 20,
+            color: Colors.white,
+          ),
+        ),
+      ],
     ),
   );
 }

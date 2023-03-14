@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -18,6 +20,7 @@ class HomeController extends GetxController {
   // hive
   final _myBox = Hive.box('mybox');
 
+//logout Function
   logout() {
     _myBox.deleteAll({'user_id', 'user_email', 'user_name', 'user_password'});
     Get.offAllNamed(Routes.TABB);
@@ -44,8 +47,10 @@ class HomeController extends GetxController {
     box(color: Colors.transparent, isCircularProgress: true);
     super.onReady();
     await getData();
+    searchData.value = studentData;
   }
 
+//Get Data Function
   getData() async {
     try {
       var response = await http.get(Uri.parse(Api.getData));
@@ -58,16 +63,21 @@ class HomeController extends GetxController {
           studentData.value = data;
           Get.back();
         } else {
-          print(1);
           Get.back();
         }
       }
     } catch (e) {
       Get.back();
-      print(e.toString());
+      Get.snackbar(
+        'Error',
+        e.toString(),
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
     }
   }
 
+//Delete data
   delete(studentId) async {
     box(color: Colors.transparent, isCircularProgress: true);
     try {
@@ -104,5 +114,12 @@ class HomeController extends GetxController {
             )
           : Text(title ?? ''),
     ));
+  }
+
+//Searching data by name function
+  searchDataByName(value) {
+    searchData.value = studentData
+        .where((e) => e.studentName.toLowerCase().startsWith(value))
+        .toList();
   }
 }

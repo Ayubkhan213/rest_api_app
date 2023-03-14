@@ -17,62 +17,27 @@ class UpdatePage extends GetView<UpdateController> {
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.only(bottom: 20.0),
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomLeft,
-                    end: Alignment.topRight,
-                    stops: [0.2, 0.3, 0.4, 0.7, 0.8, 1.0],
-                    colors: [
-                      Color(0xFF30336b),
-                      Color(0xFF182C61),
-                      Color(0xFF30336b),
-                      Color(0xFF182C61),
-                      Color(0xFF30336b),
-                      Color(0xFF30336b)
-                    ],
-                  ),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(40.0),
-                    bottomRight: Radius.circular(40.0),
-                  )),
+            //first container with gradient
+            headGradientContainer(
+              heading: 'Update Data page',
               height: height * 0.16,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      icon: const Icon(Icons.arrow_back),
-                      color: Colors.white,
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: text(
-                      txt: 'Updating Data Page',
-                      size: 20,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
             ),
+            //height
             ph(height * 0.02),
+            //heading
             Text(
               'Update Student Records',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
+            //height
             ph(height * 0.02),
+            //Form with Expanded
             Expanded(
               child: Form(
                 key: controller.key,
                 child: ListView(
                   children: [
+                    //name Field
                     inputField(
                       controller: controller.nameController,
                       save: (value) {
@@ -90,6 +55,7 @@ class UpdatePage extends GetView<UpdateController> {
                       hint: controller.data.studentName,
                       prefixIcon: Icons.person,
                     ),
+                    //age Field
                     inputField(
                       keybord: TextInputType.number,
                       controller: controller.ageController,
@@ -108,6 +74,7 @@ class UpdatePage extends GetView<UpdateController> {
                       hint: controller.data.studentAge,
                       prefixIcon: Icons.calendar_month,
                     ),
+                    //address Field
                     inputField(
                       controller: controller.addressController,
                       save: (value) {
@@ -125,6 +92,7 @@ class UpdatePage extends GetView<UpdateController> {
                       hint: controller.data.studentAddress,
                       prefixIcon: Icons.location_city_outlined,
                     ),
+                    //contect field
                     inputField(
                       keybord: TextInputType.number,
                       controller: controller.contectController,
@@ -143,7 +111,10 @@ class UpdatePage extends GetView<UpdateController> {
                       hint: controller.data.studentContect,
                       prefixIcon: Icons.phone,
                     ),
+                    //height
                     ph(height * 0.02),
+
+                    //Update Button
                     Obx(
                       () => ActionChip(
                         backgroundColor: MyColors.darkBlue,

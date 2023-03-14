@@ -79,7 +79,6 @@ class LoginController extends GetxController {
       });
 
       if (responce.statusCode == 200) {
-        print(2);
         var responcebody = jsonDecode(responce.body);
         if (responcebody['success']) {
           emailController.text = '';
@@ -107,6 +106,9 @@ class LoginController extends GetxController {
           passwordController.text = '';
           loading.value = false;
         }
+      }
+      if (responce.statusCode == 404) {
+        print('not found');
       }
     } catch (e) {
       print(e.toString());

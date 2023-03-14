@@ -18,62 +18,26 @@ class AddDataPage extends GetView<AddDataController> {
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.only(bottom: 20.0),
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomLeft,
-                    end: Alignment.topRight,
-                    stops: [0.2, 0.3, 0.4, 0.7, 0.8, 1.0],
-                    colors: [
-                      Color(0xFF30336b),
-                      Color(0xFF182C61),
-                      Color(0xFF30336b),
-                      Color(0xFF182C61),
-                      Color(0xFF30336b),
-                      Color(0xFF30336b)
-                    ],
-                  ),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(40.0),
-                    bottomRight: Radius.circular(40.0),
-                  )),
+            //First Linear Container
+            headGradientContainer(
+              heading: 'Adding Data page',
               height: height * 0.16,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      icon: const Icon(Icons.arrow_back),
-                      color: Colors.white,
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: text(
-                      txt: 'Adding Data Page',
-                      size: 20,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
             ),
             ph(height * 0.02),
             Text(
               'Add Student Records',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
+            //Height
             ph(height * 0.02),
+
+            //Form With Expanded Widget
             Expanded(
               child: Form(
                 key: controller.key,
                 child: ListView(
                   children: [
+                    //Name input Field
                     inputField(
                       controller: controller.nameController,
                       save: (value) {
@@ -85,6 +49,7 @@ class AddDataPage extends GetView<AddDataController> {
                       hint: 'Name',
                       prefixIcon: Icons.person,
                     ),
+                    //Age input Field
                     inputField(
                       keybord: TextInputType.number,
                       controller: controller.ageController,
@@ -97,6 +62,7 @@ class AddDataPage extends GetView<AddDataController> {
                       hint: 'Age',
                       prefixIcon: Icons.calendar_month,
                     ),
+                    //address Input Field
                     inputField(
                       controller: controller.addressController,
                       save: (value) {
@@ -108,6 +74,7 @@ class AddDataPage extends GetView<AddDataController> {
                       hint: 'Address',
                       prefixIcon: Icons.location_city_outlined,
                     ),
+                    //Contect Input Field
                     inputField(
                       keybord: TextInputType.number,
                       controller: controller.contectController,
@@ -120,7 +87,9 @@ class AddDataPage extends GetView<AddDataController> {
                       hint: 'Contect',
                       prefixIcon: Icons.phone,
                     ),
+                    //heighte
                     ph(height * 0.02),
+                    //submit Button
                     Obx(
                       () => ActionChip(
                         backgroundColor: MyColors.darkBlue,

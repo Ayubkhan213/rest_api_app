@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:rest_api_app/common/reusable_data.dart';
+// import 'package:rest_api_app/common/reusable_data.dart';
 import 'package:rest_api_app/common/reusable_widget.dart';
 import 'package:rest_api_app/constant/colors.dart';
 import 'package:rest_api_app/modules/home/controller/home_controller.dart';
@@ -14,11 +15,12 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var height = size.height;
-    // var width = size.width;
+    var width = size.width;
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
+            //First Gradient Container
             Container(
               padding: const EdgeInsets.only(bottom: 20.0),
               decoration: const BoxDecoration(
@@ -39,43 +41,52 @@ class HomePage extends GetView<HomeController> {
                     bottomLeft: Radius.circular(40.0),
                     bottomRight: Radius.circular(40.0),
                   )),
-              height: height * 0.16,
+              height: height * 0.18,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                      onPressed: () {
-                        controller.logout();
-                      },
-                      icon: const Icon(Icons.logout),
-                      color: Colors.white,
-                    ),
+                  //First Row For Home Text And Logout
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: width * 0.3),
+                        child: text(
+                          txt: 'Home Page',
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          controller.logout();
+                        },
+                        icon: const Icon(Icons.logout),
+                        color: Colors.white,
+                      ),
+                    ],
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: text(
-                      txt: 'Home Page',
-                      size: 20,
-                      color: Colors.white,
-                    ),
-                  ),
+                  //Search Box
+                  searchBox(height * 0.065, width * 0.8, (value) {
+                    controller.searchDataByName(value);
+                  }),
                 ],
               ),
             ),
+            //Height
             ph(height * 0.02),
+            //Heading Text
             Text(
               'Student Records',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
-
+            //Body ListView Builder
             Obx(
               () => Expanded(
                 child: ListView.builder(
-                    itemCount: studentData.isEmpty ? 1 : studentData.length,
+                    itemCount: searchData.isEmpty ? 1 : searchData.length,
                     itemBuilder: (context, index) {
-                      return studentData.isEmpty
+                      return searchData.isEmpty
                           ? Center(
                               child: text(
                                 txt: 'No Data Found',
@@ -120,21 +131,20 @@ class HomePage extends GetView<HomeController> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         text(
-                                          txt: studentData[index].studentName,
+                                          txt: searchData[index].studentName,
                                           color: index.isOdd
                                               ? MyColors.darkBlue
                                               : Colors.white,
                                         ),
                                         text(
                                           txt:
-                                              'Age :  ${studentData[index].studentAge}',
+                                              'Age :  ${searchData[index].studentAge}',
                                           color: index.isOdd
                                               ? MyColors.darkBlue
                                               : Colors.white,
                                         ),
                                         text(
-                                          txt:
-                                              studentData[index].studentContect,
+                                          txt: searchData[index].studentContect,
                                           color: index.isOdd
                                               ? MyColors.darkBlue
                                               : Colors.white,
@@ -152,7 +162,7 @@ class HomePage extends GetView<HomeController> {
                                             IconButton(
                                               onPressed: () {
                                                 controller.delete(
-                                                    studentData[index]
+                                                    searchData[index]
                                                         .studentId);
                                               },
                                               icon: const Icon(
@@ -165,7 +175,7 @@ class HomePage extends GetView<HomeController> {
                                               onPressed: () {
                                                 Get.toNamed(Routes.UPDATEDATA,
                                                     arguments:
-                                                        studentData[index]);
+                                                        searchData[index]);
                                               },
                                               icon: const Icon(
                                                 Icons.edit,
@@ -176,8 +186,7 @@ class HomePage extends GetView<HomeController> {
                                           ],
                                         ),
                                         text(
-                                          txt:
-                                              studentData[index].studentAddress,
+                                          txt: searchData[index].studentAddress,
                                           color: index.isOdd
                                               ? MyColors.darkBlue
                                               : Colors.white,
@@ -191,6 +200,7 @@ class HomePage extends GetView<HomeController> {
                     }),
               ),
             ),
+            //Height
             ph(height * 0.01),
             //Bottom Container With Linear Gradient
             GestureDetector(

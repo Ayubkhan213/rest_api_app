@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -38,7 +40,6 @@ class UpdateController extends GetxController {
 
   // name validation
   String? nameValidation(String value) {
-    // ignore: unnecessary_null_comparison
     if (value == null || value.isEmpty) {
       return 'Please Fill this Field';
     } else {
@@ -118,14 +119,19 @@ class UpdateController extends GetxController {
 
             var data = List<StudentModel>.from(
                 responseBody['userData'].map((e) => StudentModel.fromJson(e)));
-            studentData.value = data;
+            searchData.value = data;
           }
           loading.value = false;
         }
       }
     } catch (e) {
       loading.value = false;
-      print(e.toString());
+      Get.snackbar(
+        'Error',
+        e.toString(),
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
     }
   }
 
