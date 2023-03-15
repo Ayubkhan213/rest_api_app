@@ -47,7 +47,7 @@ class HomeController extends GetxController {
     box(color: Colors.transparent, isCircularProgress: true);
     super.onReady();
     await getData();
-    searchData.value = studentData;
+    // searchData.value = studentData;
   }
 
 //Get Data Function
@@ -61,6 +61,7 @@ class HomeController extends GetxController {
           var data = List<StudentModel>.from(
               responseBody['userData'].map((e) => StudentModel.fromJson(e)));
           studentData.value = data;
+          searchData.value = data;
           Get.back();
         } else {
           Get.back();
